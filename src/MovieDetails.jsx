@@ -34,54 +34,55 @@ function MovieDetail() {
     }
 
     return (
-        <>
-<div className="movie-details-container">
-    {/* 1. Backdrop Image (The large background) */}
-    <div className="hero-banner" style={{ 
-        backgroundImage: `linear-gradient(to right, #1a1a1a 20%, transparent 100%), url(https://image.tmdb.org/t/p/original${movieDetail.backdrop_path})` 
-    }}>
-        <div className="hero-content">
-            {/* 2. Poster Image */}
-            <img 
-                src={`https://image.tmdb.org/t/p/w500${movieDetail.poster_path}`} 
-                alt={movieDetail.title} 
-                className="detail-poster" 
-            />
-
-            <div className="info-text">
-movieDetail                
-                {/* 3. Rating and Metadata */}
-                <div className="meta-info">
-                    <span>⭐ {movieDetail.vote_average}/10</span>
-                    <span>{movieDetail.runtime} mins</span>
-                    <span>{movieDetail.release_date}</span>
+    <div className="movie-details-page">
+        {/* Background Banner */}
+        <div 
+            className="hero-banner" 
+            style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movieDetail.backdrop_path})` }}
+        >
+            <div className="banner-overlay"></div>
+            
+            <div className="hero-content">
+                {/* Poster */}
+                <div className="poster-container">
+                    <img 
+                        src={`https://image.tmdb.org/t/p/w500${movieDetail.poster_path}`} 
+                        alt={movieDetail.title} 
+                        className="detail-poster" 
+                    />
                 </div>
 
-                {/* 4. Genres (Mapping the array) */}
-                <div className="genre-list">
-    {/* The ?. ensures it won't crash if genres is temporarily undefined */}
-    {movieDetail?.genres?.map((genre) => (
-        <span key={genre.id} className="genre-tag">
-            {genre.name}
-        </span>
-    ))}
-</div>
+                {/* Text Info */}
+                <div className="info-text">
+                    <h1 className="movie-title">{movieDetail.title}</h1>
+                    
+                    <div className="meta-info">
+                        <span className="rating">⭐ {movieDetail.vote_average?.toFixed(1)}/10</span>
+                        <span className="dot">•</span>
+                        <span>{movieDetail.runtime} mins</span>
+                        <span className="dot">•</span>
+                        <span>{movieDetail.release_date?.split('-')[0]}</span>
+                    </div>
 
-                <button className="book-btn" onClick={() => navigate(`/movies/book/${id}`)}>
-                    Book Tickets
-                </button>
+                    <div className="genre-list">
+                        {movieDetail.genres?.map(genre => (
+                            <span key={genre.id} className="genre-tag">{genre.name}</span>
+                        ))}
+                    </div>
+
+                    <p className="overview-text">{movieDetail.overview}</p>
+
+                    <button className="book-btn" onClick={() => 
+                    navigate(`/movies/book/${id}/${encodeURIComponent(movieDetail.title)}/${movieDetail.release_date}`)}>
+                        Book Tickets
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
-    {/* 5. The Overview / Description */}
-    <div className="description-section">
-        <h3>About the Movie</h3>
-        <p>{movieDetail.overview}</p>
-    </div>
-</div>
-        </>
-    );
+);
 }
+
+
 
 export default MovieDetail;

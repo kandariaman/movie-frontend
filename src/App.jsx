@@ -20,7 +20,7 @@ return (
           <Route path="/movies/details/:id" element={<MovieDetails />} />
 
           {/* The Booking Page */}
-          <Route path="/movies/book/:id" element={<BookingPage />} />
+          <Route path="/movies/book/:id/:title/:date" element={<BookingPage />} />
         </Routes>
       </div>
     </Router>

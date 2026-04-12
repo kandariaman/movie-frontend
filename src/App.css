@@ -211,3 +211,113 @@
   object-fit: cover;
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
+
+/* Container for the whole page */
+.movie-details-page {
+  background-color: #0f0f0f;
+  color: white;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Background image handling */
+.hero-banner {
+  position: relative;
+  height: 85vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Dark gradient to protect text visibility */
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #0f0f0f 5%, rgba(15, 15, 15, 0.3) 50%, transparent 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 80px 40px;
+  align-items: center;
+}
+
+.detail-poster {
+  width: 320px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.movie-title {
+  font-size: 4rem;
+  margin: 0 0 15px 0;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.meta-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.2rem;
+  color: #bdc3c7;
+  margin-bottom: 20px;
+}
+
+.rating {
+  color: #f1c40f;
+  font-weight: bold;
+}
+
+.dot { color: #555; }
+
+.genre-list {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.genre-tag {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.overview-text {
+  max-width: 750px;
+  line-height: 1.7;
+  font-size: 1.15rem;
+  color: #ecf0f1;
+  margin-bottom: 35px;
+}
+
+.book-btn {
+  background-color: #e50914; /* Action Red */
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+  background-color: #ff0a16;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+}
