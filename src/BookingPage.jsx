@@ -9,6 +9,7 @@ function BookTicket() {
     const [timings, setTimings] = useState({});
     const [theatre, setTheatre] = useState([]);
     
+    const navigate = useNavigate();
     
     const callBooking = async () => {
         const mDate = new Date().toLocaleDateString('en-CA');
@@ -111,7 +112,15 @@ console.log("Timings Array:", theatre?.timings);
                             {/* Applied styles.timeButton for the green border and padding */}
                             <button 
                                 style={styles.timeButton} 
-                                onClick={() => handleBooking(singleTheatre, index)}
+                                
+                                onClick={() => {
+                                    // Get the specific ID for this time slot
+                                    const selectedShowId = singleTheatre.screeningIds[index];
+                
+                                    // Navigate to the seating page using that ID
+                                    // Your route in App.js should be: /movies/show/:id
+                                    navigate(`/movies/show/${selectedShowId}`);
+                                }}
                             >
                                 {time}
                             </button>

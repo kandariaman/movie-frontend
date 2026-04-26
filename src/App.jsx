@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import MovieSearch from './MovieSearch.jsx'
 import MovieDetails from './MovieDetails.jsx'
 import BookingPage from './BookingPage.jsx'
+import HandlingBooking from './HandlingBooking.jsx'
+import Payment from './Payment.jsx'
+
 
 function App() {
 return (
@@ -20,6 +23,11 @@ return (
 
           {/* The Booking Page */}
           <Route path="/movies/book/:id/:title/:date" element={<BookingPage />} />
+
+          <Route path="/movies/show/:showId" element={<HandlingBooking />} />
+          
+          <Route path="/payment/create-order" element={<Payment />} />
+
         </Routes>
       </div>
     </Router>

@@ -321,3 +321,151 @@
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
 }
+
+.seat-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* 8 seats per row */
+    gap: 10px;
+    justify-content: center;
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.seat {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+    transition: 0.3s;
+}
+
+/* Status Styling */
+.available {
+    background-color: #fff;
+    color: #000;
+}
+
+.locked {
+    background-color: #ffcc00; /* Yellow for someone currently booking */
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.booked {
+    background-color: #d1d1d1; /* Grey for sold out */
+    cursor: not-allowed;
+}
+
+.selected {
+    background-color: #4caf50 !important; /* Green for your selection */
+    color: white;
+    border-color: #2e7d32;
+}
+
+.screen {
+    width: 80%;
+    height: 20px;
+    background: #555;
+    margin: 20px auto;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    box-shadow: 0 3px 10px rgba(255,255,255,0.2);
+}
+
+/* The container that holds all the buttons */
+.seat-container {
+    display: grid;
+    /* This creates a grid with 10 equal columns */
+    grid-template-columns: repeat(10, 50px); 
+    gap: 15px;
+    justify-content: center;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+/* The actual seat buttons */
+.seat {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #4caf50;
+    background-color: transparent;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+/* Styling based on status */
+.seat.available:hover {
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+.seat.booked {
+    background-color: #333;
+    border-color: #555;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.seat.selected {
+    background-color: #4caf50;
+    color: white;
+}
+
+/* The container bar */
+.payment-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #1f2937; /* Dark background to match your theme */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: slideUp 0.3s ease-out; /* Entry animation */
+}
+
+.payment-details {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.total-amount {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4ade80; /* Green for price */
+}
+
+/* The actual button */
+.pay-btn-pop {
+    background-color: #f84464; /* Classic booking red */
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.pay-btn-pop:hover {
+    background-color: #d63350;
+    transform: scale(1.05); /* Slight "pop" on hover */
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
