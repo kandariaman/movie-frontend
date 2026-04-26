@@ -15,7 +15,16 @@ export default defineConfig({
         target: 'http://localhost:8080',
         changeOrigin: true,
         secure: false,
-      }
+      },
+    // Traffic for Payment Service (Razorpay, Orders)
+    '/payments': {
+      target: 'http://localhost:8081',
+      changeOrigin: true,
+      secure: false,
+      // Optional: If your Java controller uses /api/payment, 
+      // this rewrites /payments/foo to /api/payment/foo
+      rewrite: (path) => path.replace(/^\/payments/, '/api') 
+    }
     }
   }
 })

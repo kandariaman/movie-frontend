@@ -40,21 +40,46 @@ function HandleBooking() {
         };
         if (showId) fetchSeats();
     }, [showId]);
+
+    const verifyWithRetry = async (paymentData, retries = 3) => {
+        try {
+            const res = await axios.post('/payments/payment/verify', paymentData);
+            alert("Seat booked successfully!!!");
+            return res.data;
+        } catch (error) {
+            if(retries > 0 && error.response?.status === 500) {
+                console.log(`Retrying... attempts left: ${retries}`);
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                return verifyWithRetry(paymentData, retries - 1);
+            } else {
+
+                if(error.response?.status === 400) {
+                    alert(`Verification Error: ${error.response.data}`);
+                } else {
+                    alert("Payment received, but booking failed. Refund in 3-5 days.");
+                    console.error("Payload sent to backend:", paymentData);    
+                    }
+                }
+            }
+        }
+
     
     const handlePayment = async () => {
     try {
         // 1. Call your Java backend to create the Razorpay Order
         const amount = selectedSeats.length * 200; // Example price
-        const response = await axios.post(`/api/v1/payments/create-order`, {
+        const response = await axios.post(`/payments/payment/create-order`, {
             amount: amount,
-            screeningId: id
+            screeningId: showId
         });
 
-        const orderData = response.data; // This is the string/object from your Service
+        console.log("Actual response is :: ", response);
 
+        const orderData = response.data; // This is the string/object from your Service
+        console.log("Response data is :: ", orderData);
         // 2. Configure Razorpay Options
         const options = {
-            key: "YOUR_RAZORPAY_KEY_ID", // Best to get this from backend too
+            key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Best to get this from backend too
             amount: orderData.amount, 
             currency: "INR",
             name: "BookMyShow Clone",
@@ -65,6 +90,23 @@ function HandleBooking() {
                 alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
                 confirmBooking(response.razorpay_payment_id);
             },
+
+            handler: function (response) {
+                const paymentData = {
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_signature: response.razorpay_signature,
+                    seatId: 8 
+                };
+
+                console.log("Payment response is ::: ", paymentData);
+                verifyWithRetry(paymentData);
+
+    // axios.post('/payments/payment/verify', paymentData)
+    //     .then(res => alert("Payment Verified & Seat Booked!"))
+    //     .catch(err => console.error("Verification failed", err));
+},
+
             prefill: {
                 name: "User Name",
                 email: "user@example.com",
